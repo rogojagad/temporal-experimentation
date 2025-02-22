@@ -1,0 +1,11 @@
+meta {
+  name: Pay Order
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/order/{{orderId}}/payment
+  body: none
+  auth: none
+}

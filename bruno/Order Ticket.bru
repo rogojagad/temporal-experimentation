@@ -1,0 +1,60 @@
+meta {
+  name: Order Ticket
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/order
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "details": [
+      {
+        "category": "VIP",
+        "numberOfTickets": 2,
+        "pricePerTicket": 150.00,
+        "totalPrice": 300.00
+      },
+      {
+        "category": "REGULAR",
+        "numberOfTickets": 3,
+        "pricePerTicket": 50.00,
+        "totalPrice": 150.00
+      }
+    ],
+    "numberOfTickets": 5,
+    "totalPrice": 450.00,
+    "customerName": "John Doe",
+    "customerIdNumber": "ID-123456789",
+    "customerEmail": "john.doe@example.com"
+  }
+}
+
+script:pre-request {
+  const faker = require('@faker-js/faker').fakerID_ID;
+  const dayjs = require('dayjs');
+  
+  const birthDate = dayjs(faker.date.birthdate({
+    min: 25,
+    max: 50,
+    mode: 'age'
+  }));
+  
+  const nikDate = birthDate.format("DDMMYY");
+  
+  const nik = faker.finance.accountNumber(6) + nikDate + faker.finance.accountNumber(4);
+  
+  bru.setVar("idNumber", nik);
+}
+
+script:post-response {
+  bru.setVar("orderId", res.body.orderId)
+}
