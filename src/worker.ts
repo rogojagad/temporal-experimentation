@@ -27,7 +27,7 @@ async function setupWorker(): Promise<Worker> {
   });
 
   const worker = await Worker.create({
-    workflowsPath: '/Users/rogo/Documents/personal/temporal-experimentation/src/workflows.ts',
+    workflowsPath: require.resolve('./workflows'),
     reuseV8Context: true,
     taskQueue: 'default',
     namespace: 'default',
