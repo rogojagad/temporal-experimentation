@@ -9,6 +9,14 @@ const acquireStock = async (orderParams: ITicketOrderParams): Promise<IOrderDeta
   return new Promise((resolve) => setTimeout(() => resolve(orderParams.details), 50));
 };
 
+const releaseStock = async (orderParams: ITicketOrderParams): Promise<IOrderDetail[]> => {
+  /**
+   * Execute a DB query or API call to increment stock of the ticket category
+   * For simplicity sake, mock the process using Promise.
+   */
+  return new Promise((resolve) => setTimeout(() => resolve(orderParams.details), 50));
+};
+
 const createOrder = async (
   orderParams: ITicketOrderParams,
 ): Promise<{ orderId: string; status: TicketOrderStatus }> => {
@@ -54,9 +62,23 @@ const updateOrderStatus = async (
   );
 };
 
+const sendOrderReceipt = async (
+  _orderParams: ITicketOrderParams,
+  _orderResult: ITicketOrderResult,
+): Promise<void> => {
+  /**
+   * Execute API call to send order receipt
+   * For example's simplicity sake, mock the process using Promise.
+   */
+
+  return new Promise((resolve) => setTimeout(resolve, 50));
+};
+
 export default {
   acquireStock,
   createOrder,
   createPaymentRequest,
   updateOrderStatus,
+  releaseStock,
+  sendOrderReceipt,
 };
